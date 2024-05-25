@@ -10,10 +10,14 @@ class GoogleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(
-          Icons.home_outlined,
-          size: 32,
-          color: Colors.white,
+        leading: CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: ()  => Navigator.of(context).pop(),
+          child: const Icon(
+            Icons.home_outlined,
+            size: 32,
+            color: Colors.white,
+          ),
         ),
         toolbarHeight: 50,
         centerTitle: true,
