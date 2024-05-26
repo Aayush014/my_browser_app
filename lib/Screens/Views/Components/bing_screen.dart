@@ -45,7 +45,7 @@ class BingScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SizedBox(
-                width: 10,
+                width: 1,
               ),
               Container(
                 alignment: Alignment.center,
@@ -64,7 +64,7 @@ class BingScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                width: 10,
+                width: 25,
               ),
               customPopUpMenu(),
               const SizedBox(

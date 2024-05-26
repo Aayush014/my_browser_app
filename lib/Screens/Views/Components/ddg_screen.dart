@@ -27,8 +27,6 @@ class DdgScreen extends StatelessWidget {
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Spacer(
-            ),
             SizedBox(height:30,child: Image.asset("Assets/Img/ddglogo.png")),
             const Text(" "),
             const Text("Duck Duck Go",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),),
@@ -39,7 +37,6 @@ class DdgScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(width: 10,),
               Container(
                 alignment: Alignment.center,
                 height: 22,

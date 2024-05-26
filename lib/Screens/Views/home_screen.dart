@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
             CupertinoButton(
                 padding: EdgeInsets.zero,
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const GoogleScreen(),
+                      builder: (context) => const GoogleScreen(url: '',),
                     )),
                 child: myBrowsers(Colors.blue, "Assets/Img/google.png")),
             CupertinoButton(

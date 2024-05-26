@@ -2,12 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
+import '../../Provider/engine_provider.dart';
 import 'custom_bottom_navbar.dart';
 import 'custom_popup_menu.dart';
 
 class GoogleScreen extends StatelessWidget {
-  const GoogleScreen({super.key});
+  const GoogleScreen({super.key, required this.url});
+
+  final String url;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +96,7 @@ class GoogleScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                width: 25,
+                width: 35,
               ),
               customPopUpMenu(),
               const SizedBox(
@@ -113,21 +117,36 @@ class GoogleScreen extends StatelessWidget {
           inAppWebView = controller;
         },
         onProgressChanged: (controller, progress) {},
+        onLoadStop: (controller, url) async {
+          if (url != null) {
+            String? title = await controller.getTitle();
+            if (title != null) {
+              Provider.of<HistoryProvider>(context, listen: false)
+                  .addHistoryEntry(title, url.toString());
+            }
+          }
+        },
       ),
       bottomNavigationBar: customBottomNavBar(),
     );
   }
-
-
-
-
 }
 
 Widget myListTile(String t1, IconData i1) {
   return SizedBox(
     height: 40,
     child: Row(
-      children: [Icon(i1), const Text("    "), Text(t1)],
+      children: [
+        Icon(
+          i1,
+          color: Colors.white,
+        ),
+        const Text("    "),
+        Text(
+          t1,
+          style: TextStyle(color: Colors.white),
+        )
+      ],
     ),
   );
 }
