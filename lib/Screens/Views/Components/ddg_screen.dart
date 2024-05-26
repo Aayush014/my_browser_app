@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:my_browser_app/Screens/Views/Components/custom_bottom_navbar.dart';
+import 'package:my_browser_app/Screens/Views/Components/custom_popup_menu.dart';
 
 import 'google_screen.dart';
 
@@ -26,11 +28,10 @@ class DdgScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Spacer(
-              flex: 2,
             ),
-            SizedBox(height:35,child: Image.asset("Assets/Img/ddglogo.png")),
+            SizedBox(height:30,child: Image.asset("Assets/Img/ddglogo.png")),
             const Text(" "),
-            const Text("Duck Duck Go",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            const Text("Duck Duck Go",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),),
             const Spacer()
           ],
         ),
@@ -38,6 +39,7 @@ class DdgScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              SizedBox(width: 10,),
               Container(
                 alignment: Alignment.center,
                 height: 22,
@@ -55,12 +57,9 @@ class DdgScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                width: 40,
+                width: 30,
               ),
-              const Icon(
-                CupertinoIcons.ellipsis_vertical,
-                color: Colors.white,
-              ),
+              customPopUpMenu(),
               const SizedBox(
                 width: 10,
               ),
@@ -80,69 +79,7 @@ class DdgScreen extends StatelessWidget {
         },
         onProgressChanged: (controller, progress) {},
       ),
-      bottomNavigationBar: Container(
-        height: 60,
-        color: const Color(0xff353739),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              onPressed: () {
-                inAppWebView.goBack();
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                inAppWebView.goForward();
-              },
-              icon: const Icon(
-                Icons.arrow_forward,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              height: 45,
-              width: 45,
-              decoration: BoxDecoration(
-                  color: const Color(0xff5F6367),
-                  borderRadius: BorderRadius.circular(30)),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                inAppWebView.reload();
-              },
-              icon: const Icon(
-                Icons.refresh_rounded,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.more_horiz,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: customBottomNavBar(),
     );
   }
 }

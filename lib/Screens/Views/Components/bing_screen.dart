@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:my_browser_app/Screens/Views/Components/custom_bottom_navbar.dart';
+import 'package:my_browser_app/Screens/Views/Components/custom_popup_menu.dart';
 
 import 'google_screen.dart';
 
@@ -13,7 +15,7 @@ class BingScreen extends StatelessWidget {
       appBar: AppBar(
         leading: CupertinoButton(
           padding: EdgeInsets.zero,
-          onPressed: ()  => Navigator.of(context).pop(),
+          onPressed: () => Navigator.of(context).pop(),
           child: const Icon(
             Icons.home_outlined,
             size: 32,
@@ -25,12 +27,16 @@ class BingScreen extends StatelessWidget {
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Spacer(
-              flex: 2,
-            ),
-            SizedBox(height:35,child: Image.asset("Assets/Img/micro.jpg")),
+            const Spacer(),
+            SizedBox(height: 25, child: Image.asset("Assets/Img/micro.jpg")),
             const Text(" "),
-            const Text("Microsoft BING",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            const Text(
+              "Microsoft BING",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
+            ),
             const Spacer()
           ],
         ),
@@ -38,6 +44,9 @@ class BingScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              const SizedBox(
+                width: 10,
+              ),
               Container(
                 alignment: Alignment.center,
                 height: 22,
@@ -55,12 +64,9 @@ class BingScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                width: 40,
+                width: 10,
               ),
-              const Icon(
-                CupertinoIcons.ellipsis_vertical,
-                color: Colors.white,
-              ),
+              customPopUpMenu(),
               const SizedBox(
                 width: 10,
               ),
@@ -72,77 +78,14 @@ class BingScreen extends StatelessWidget {
       ),
       body: InAppWebView(
         initialUrlRequest: URLRequest(
-          url: WebUri(
-              "https://www.bing.com/?FORM=Z9FD1"),
+          url: WebUri("https://www.bing.com/?FORM=Z9FD1"),
         ),
         onWebViewCreated: (controller) {
           inAppWebView = controller;
         },
         onProgressChanged: (controller, progress) {},
       ),
-      bottomNavigationBar: Container(
-        height: 60,
-        color: const Color(0xff353739),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              onPressed: () {
-                inAppWebView.goBack();
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                inAppWebView.goForward();
-              },
-              icon: const Icon(
-                Icons.arrow_forward,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              height: 45,
-              width: 45,
-              decoration: BoxDecoration(
-                  color: const Color(0xff5F6367),
-                  borderRadius: BorderRadius.circular(30)),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                inAppWebView.reload();
-              },
-              icon: const Icon(
-                Icons.refresh_rounded,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.more_horiz,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: customBottomNavBar(),
     );
   }
 }

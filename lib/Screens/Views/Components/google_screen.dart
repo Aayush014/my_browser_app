@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'custom_bottom_navbar.dart';
+import 'custom_popup_menu.dart';
+
 class GoogleScreen extends StatelessWidget {
   const GoogleScreen({super.key});
 
@@ -12,7 +15,7 @@ class GoogleScreen extends StatelessWidget {
       appBar: AppBar(
         leading: CupertinoButton(
           padding: EdgeInsets.zero,
-          onPressed: ()  => Navigator.of(context).pop(),
+          onPressed: () => Navigator.of(context).pop(),
           child: const Icon(
             Icons.home_outlined,
             size: 32,
@@ -24,7 +27,9 @@ class GoogleScreen extends StatelessWidget {
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Spacer(flex: 2,),
+            const Spacer(
+              flex: 2,
+            ),
             Text(
               "G",
               style: GoogleFonts.poppins(
@@ -87,12 +92,9 @@ class GoogleScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                width: 40,
+                width: 25,
               ),
-              const Icon(
-                CupertinoIcons.ellipsis_vertical,
-                color: Colors.white,
-              ),
+              customPopUpMenu(),
               const SizedBox(
                 width: 10,
               ),
@@ -105,79 +107,29 @@ class GoogleScreen extends StatelessWidget {
       body: InAppWebView(
         initialUrlRequest: URLRequest(
           url: WebUri(
-            "https://www.google.com/webhp?hl=en&ictx=2&sa=X&ved=0ahUKEwjii6O6vKmGAxWsZfUHHbPsJksQPQgK"
-          ),
+              "https://www.google.com/webhp?hl=en&ictx=2&sa=X&ved=0ahUKEwjii6O6vKmGAxWsZfUHHbPsJksQPQgK"),
         ),
         onWebViewCreated: (controller) {
           inAppWebView = controller;
         },
         onProgressChanged: (controller, progress) {},
       ),
-      bottomNavigationBar: Container(
-        height: 60,
-        color: const Color(0xff353739),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              onPressed: () {
-                inAppWebView.goBack();
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                inAppWebView.goForward();
-              },
-              icon: const Icon(
-                Icons.arrow_forward,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              height: 45,
-              width: 45,
-              decoration: BoxDecoration(
-                  color: const Color(0xff5F6367),
-                  borderRadius: BorderRadius.circular(30)),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                inAppWebView.reload();
-              },
-              icon: const Icon(
-                Icons.refresh_rounded,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.more_horiz,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: customBottomNavBar(),
     );
   }
+
+
+
+
+}
+
+Widget myListTile(String t1, IconData i1) {
+  return SizedBox(
+    height: 40,
+    child: Row(
+      children: [Icon(i1), const Text("    "), Text(t1)],
+    ),
+  );
 }
 
 late InAppWebViewController inAppWebView;
