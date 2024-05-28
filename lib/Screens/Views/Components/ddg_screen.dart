@@ -76,7 +76,7 @@ class DdgScreen extends StatelessWidget {
         },
         onProgressChanged: (controller, progress) {},
       ),
-      bottomNavigationBar: customBottomNavBar(),
+      bottomNavigationBar: CustomBottomNavbar(),
     );
   }
 }

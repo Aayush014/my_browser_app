@@ -85,7 +85,7 @@ class BingScreen extends StatelessWidget {
         },
         onProgressChanged: (controller, progress) {},
       ),
-      bottomNavigationBar: customBottomNavBar(),
+      bottomNavigationBar: CustomBottomNavbar(),
     );
   }
 }

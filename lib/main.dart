@@ -4,6 +4,8 @@ import 'package:my_browser_app/Screens/Provider/engine_provider.dart';
 import 'package:my_browser_app/Screens/Views/home_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'Screens/Provider/navigation_provider.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => BookmarkProvider(),
-        )
+        ),
+        ChangeNotifierProvider(create: (context) => NavigationProvider(),)
       ],
       builder: (context, child) => MaterialApp(
         theme: ThemeData.dark(),

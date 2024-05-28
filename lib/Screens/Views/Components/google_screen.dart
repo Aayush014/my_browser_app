@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_browser_app/Screens/Views/Components/custom_bottom_navbar.dart';
 import 'package:provider/provider.dart';
 
 import '../../Provider/engine_provider.dart';
-import 'custom_bottom_navbar.dart';
+import '../../Provider/navigation_provider.dart';
 import 'custom_popup_menu.dart';
 
 class GoogleScreen extends StatelessWidget {
@@ -15,6 +16,7 @@ class GoogleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigationProvider = Provider.of<NavigationProvider>(context);
     return Scaffold(
       appBar: AppBar(
         leading: CupertinoButton(
@@ -125,9 +127,20 @@ class GoogleScreen extends StatelessWidget {
                   .addHistoryEntry(title, url.toString());
             }
           }
+          bool canNavigateBack = await inAppWebView.canGoBack();
+          navigationProvider.setCanGoBack(canNavigateBack);
+        },
+        onLoadStart: (controller, url) async {
+          // Check if can go back
+          bool canNavigateBack = await inAppWebView.canGoBack();
+          bool canNavigateForward = await inAppWebView.canGoForward();
+          Provider.of<NavigationProvider>(context, listen: false)
+              .setCanGoBack(canNavigateBack);
+          Provider.of<NavigationProvider>(context, listen: false)
+              .setCanGoForward(canNavigateForward);
         },
       ),
-      bottomNavigationBar: customBottomNavBar(),
+      bottomNavigationBar: CustomBottomNavbar(),
     );
   }
 }
